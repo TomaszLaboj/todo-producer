@@ -26,7 +26,7 @@ public class ToDoController {
     public ToDoItem postToDoItem(@RequestBody ToDoItemRequest toDoItemRequest) {
         ToDoItem toDoItem = new ToDoItem(toDoItemRequest.getTitle(), toDoItemRequest.getLabel(), false);
         ToDoItem inserted = repository.save(toDoItem);
-
+        System.out.println(inserted.toString());
         producer.sendCreated(toDoItem);
         return inserted;
     }
