@@ -1,14 +1,16 @@
 package com.tomasz_laboj.simplified_todo.controller;
 
+import com.tomasz_laboj.simplified_todo.repository.TaskLabel;
+
 public class ToDoItemRequest {
     private String title;
-    private String label;
+    private TaskLabel label;
 
     public String getTitle() {
         return title;
     }
 
-    public String getLabel() {
+    public TaskLabel getLabel() {
         return label;
     }
 
@@ -16,7 +18,7 @@ public class ToDoItemRequest {
         this.title = title;
     }
 
-    public void setLabel(String label) {
+    public void setLabel(TaskLabel label) {
         this.label = label;
     }
 }

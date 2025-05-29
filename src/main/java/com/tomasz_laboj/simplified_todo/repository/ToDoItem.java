@@ -22,19 +22,19 @@ public class ToDoItem implements Serializable {
     private Long id;
 
     private String title;
-    private String label;
+    private TaskLabel label;
 
     private boolean isDone;
 
     protected ToDoItem() {}
 
-    public ToDoItem(String title, String label, boolean isDone) {
+    public ToDoItem(String title, TaskLabel label, boolean isDone) {
         this.title = title;
         this.label = label;
         this.isDone = isDone;
     }
 
-    public ToDoItem(Long id, String title, String label, boolean isDone) {
+    public ToDoItem(Long id, String title, TaskLabel label, boolean isDone) {
         this.id = id;
         this.title = title;
         this.label = label;
@@ -50,8 +50,8 @@ public class ToDoItem implements Serializable {
     }
     public void setTitle(String title) { this.title = title; };
 
-    public String getLabel() { return label; }
-    public void setLabel(String label) { this.label = label; }
+    public TaskLabel getLabel() { return label; }
+    public void setLabel(TaskLabel label) { this.label = label; }
 
     @JsonProperty("isDone")
     public boolean isDone() {return isDone;}

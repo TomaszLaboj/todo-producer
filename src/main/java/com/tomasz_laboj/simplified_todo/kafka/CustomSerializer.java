@@ -25,7 +25,7 @@ public class CustomSerializer implements Serializer<ToDoItem> {
             System.out.println("Serializing...");
             return objectMapper.writeValueAsBytes(todoItem);
         } catch (Exception e) {
-            throw new SerializationException("Error when serializing ToDoItem to byte[]");
+            throw new SerializationException("Error when serializing object to byte[]");
         }
     }
 
