@@ -3,6 +3,7 @@ package com.tomasz_laboj.simplified_todo.controller;
 import java.util.List;
 import java.util.Optional;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tomasz_laboj.simplified_todo.kafka.KafkaProducer;
 import com.tomasz_laboj.simplified_todo.repository.ToDoItem;
 import com.tomasz_laboj.simplified_todo.repository.ToDoRepository;
@@ -23,16 +24,17 @@ public class ToDoController {
     }
 
     @PostMapping("/")
-    public ToDoItem postToDoItem(@RequestBody ToDoItemRequest toDoItemRequest) {
+    public ToDoItem postToDoItem(@RequestBody ToDoItemRequest toDoItemRequest) throws JsonProcessingException {
         ToDoItem toDoItem = new ToDoItem(toDoItemRequest.getTitle(), toDoItemRequest.getLabel(), false);
         ToDoItem inserted = repository.save(toDoItem);
         System.out.println(inserted.toString());
         producer.sendCreated(toDoItem);
+
         return inserted;
     }
 
     @PutMapping("/{id}")
-    public ToDoItem updateToDoItem(@RequestBody ToDoItem updatedToDo, @PathVariable Long id) {
+    public ToDoItem updateToDoItem(@RequestBody ToDoItem updatedToDo, @PathVariable Long id) throws JsonProcessingException {
         Optional<ToDoItem> toDoItem = repository.findById(id);
 
         if (toDoItem.isPresent()) {
@@ -50,7 +52,7 @@ public class ToDoController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteToDoItem(@PathVariable Long id) {
+    public void deleteToDoItem(@PathVariable Long id) throws JsonProcessingException {
         Optional<ToDoItem> toDoItem = repository.findById(id);
         if (toDoItem.isPresent()) {
             producer.sendDeleted(toDoItem.get());
